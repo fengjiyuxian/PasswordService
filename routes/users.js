@@ -76,6 +76,61 @@ router.get('/:uid', function(req, res, next) {
   });
 });
 
+/** Return all the groups for a given user. */
+router.get('/:uid/groups', function(req, res, next) {
+  console.log("/:uid/groups");
+  fs.readFile('../test/group',function (err, data) {
+      if (err) {
+          return console.error(err);
+      }
+      let arr = data.toString().split(/[\n]/);
+      let list = [];
+      console.log(req.params);
+      let username = getUser(req.params.uid);
+      if(username == null){
+        res.send("User not found!");
+        return;
+      }
+      
+      for(let str of arr){
+          let tmp = {};
+          let tmparr = str.split(":");
+          if(tmparr.length < 4){
+            continue;
+          }
+          tmp['name'] = tmparr[0];
+          tmp['gid'] = tmparr[2];
+          tmp['members'] = tmparr[3].replace(/[\r]/g,"").split(",");
+          if(existUser(username,tmp['members'])){
+            list.push(tmp);
+          }    
+      }
+      res.send(list);
+  });
+});
+
+function getUser(uid){
+  var username = null;
+  let arr = fs.readFileSync('../test/passwd').toString().split(/[\n]/);
+  for(let str of arr){
+    let tmparr = str.split(":");
+    if(tmparr[2] == uid){
+      username = tmparr[0];
+      return username;
+    }
+  } 
+  return username; 
+}
+
+function existUser(username, arr){
+  for(let v of arr){
+    if(username == v){
+      return true;
+    }
+  }
+  return false;
+}
+
 function check(query,obj){
   for(let key in query){
     if(query[key] != obj[key]){
