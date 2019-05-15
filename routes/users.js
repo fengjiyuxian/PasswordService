@@ -113,7 +113,7 @@ router.get('/:uid/groups', function(req, res, next) {
 
 function getUser(uid){
   var username = null;
-  let arr = fs.readFileSync(fileConfig.passwd).toString().split(/[\n]/);
+  let arr = fs.readFileSync(fileConfig.passwordUrl).toString().split(/[\n]/);
   for(let str of arr){
     let tmparr = str.split(":");
     if(tmparr[2] == uid){
