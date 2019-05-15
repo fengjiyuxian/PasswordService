@@ -1,14 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+const fileConfig = require('./config').fileConfig;
 const attr = ["name", "uid", "gid", "comment", "home", "shell"];
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  fs.readFile('../test/passwd', function (err, data) {
+  fs.readFile(fileConfig.passwd, function (err, data) {
     if (err) {
-        return console.error(err);
+       return console.log("Cannot find the passwd file!");
     }
+    console.log("teeee");
     let arr = data.toString().split(/[\n]/);
     let list = [];
     for(let str of arr){
@@ -29,9 +31,9 @@ router.get('/', function(req, res, next) {
 router.get('/query', function(req, res, next) {
   console.log(req.query);
   console.log(req.query.name);
-  fs.readFile('../test/passwd', function (err, data) {
+  fs.readFile(fileConfig.passwd, function (err, data) {
     if (err) {
-        return console.error(err);
+      return console.log("Cannot find the passwd file!");
     }
     let arr = data.toString().split(/[\n]/);
     let list = [];
@@ -54,9 +56,9 @@ router.get('/query', function(req, res, next) {
 
 /* GET users list with querys. */
 router.get('/:uid', function(req, res, next) {
-  fs.readFile('../test/passwd', function (err, data) {
+  fs.readFile(fileConfig.passwd, function (err, data) {
     if (err) {
-        return console.error(err);
+      return console.log("Cannot find the passwd file!");
     }
     let arr = data.toString().split(/[\n]/);
     for(let str of arr){
@@ -79,9 +81,9 @@ router.get('/:uid', function(req, res, next) {
 /** Return all the groups for a given user. */
 router.get('/:uid/groups', function(req, res, next) {
   console.log("/:uid/groups");
-  fs.readFile('../test/group',function (err, data) {
+  fs.readFile(fileConfig.group,function (err, data) {
       if (err) {
-          return console.error(err);
+        return console.log("Cannot find the group file!");
       }
       let arr = data.toString().split(/[\n]/);
       let list = [];
@@ -111,7 +113,7 @@ router.get('/:uid/groups', function(req, res, next) {
 
 function getUser(uid){
   var username = null;
-  let arr = fs.readFileSync('../test/passwd').toString().split(/[\n]/);
+  let arr = fs.readFileSync(fileConfig.passwd).toString().split(/[\n]/);
   for(let str of arr){
     let tmparr = str.split(":");
     if(tmparr[2] == uid){
