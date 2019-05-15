@@ -66,7 +66,7 @@ router.get('/:uid', function(req, res, next) {
       let tmparr = str.split(":");
       tmparr.splice(1,1);
       for(let i = 0; i < tmparr.length; i++){
-        tmp[attr[i]] = tmparr[i].replace(/[\r]/g,"");
+        tmp[attr[i]] = tmparr[i];
       }
       if(req.params.uid == tmp['uid']){
         res.send(tmp);
@@ -93,17 +93,19 @@ router.get('/:uid/groups', function(req, res, next) {
         res.send("User not found!");
         return;
       }
-      
+      console.log(username);
       for(let str of arr){
           let tmp = {};
           let tmparr = str.split(":");
           if(tmparr.length < 4){
             continue;
           }
+          console.log(tmparr);
           tmp['name'] = tmparr[0];
           tmp['gid'] = tmparr[2];
-          tmp['members'] = tmparr[3].replace(/[\r]/g,"").split(",");
+          tmp['members'] = tmparr[3].split(",");
           if(existUser(username,tmp['members'])){
+            console.log("add", username);
             list.push(tmp);
           }    
       }

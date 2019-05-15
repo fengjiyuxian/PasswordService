@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
             }
             tmp['name'] = tmparr[0];
             tmp['gid'] = tmparr[2];
-            tmp['members'] = tmparr[3].replace(/[\r]/g,"").split(",");
+            tmp['members'] = tmparr[3].split(",");
             list.push(tmp);
             
         }
@@ -44,13 +44,13 @@ router.get('/query', function(req, res, next) {
             if(tmparr.length < 4){
                 continue;
             }
-            if((req.query.name != null && tmparr[0] != req.query.name) || (req.query.gid != null && tmparr[2] != req.query.gid) || (req.query.member != null && !memberMatch(req.query.member, tmparr[3].replace(/[\r]/g,"").split(",")))){
-                console.log("test",req.query.member, tmparr[3].replace(/[\r]/g,"").split(","));
+            if((req.query.name != null && tmparr[0] != req.query.name) || (req.query.gid != null && tmparr[2] != req.query.gid) || (req.query.member != null && !memberMatch(req.query.member, tmparr[3].split(",")))){
+                console.log("test",req.query.member, tmparr[3].split(","));
                 continue;
             }else{
                 tmp['name'] = tmparr[0];
                 tmp['gid'] = tmparr[2];
-                tmp['members'] = tmparr[3].replace(/[\r]/g,"").split(",");
+                tmp['members'] = tmparr[3].split(",");
                 list.push(tmp);
             }
             
@@ -77,7 +77,7 @@ router.get('/:gid', function(req, res, next) {
             }else{
                 tmp['name'] = tmparr[0];
                 tmp['gid'] = tmparr[2];
-                tmp['members'] = tmparr[3].replace(/[\r]/g,"").split(",");
+                tmp['members'] = tmparr[3].split(",");
                 list.push(tmp);
             }
             
