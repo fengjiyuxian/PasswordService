@@ -1,6 +1,6 @@
 module.exports = {
   fileConfig: {
-    passwordUrl: '/etc/passwd',
-    groupUrl: '/etc/group'
+    passwordUrl: '../test/passwd',
+    groupUrl: '../test/group'
   }
 }

@@ -6,7 +6,7 @@ const fileConfig = require('./config').fileConfig;
 
 /* Return all the groups. */
 router.get('/', function(req, res, next) {
-    fs.readFile(fileConfig.group, function (err, data) {
+    fs.readFile(fileConfig.groupUrl, function (err, data) {
         if (err) {
             return console.log("Cannot find the group file!"); 
         }
@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 following query parameters may be supplied:name, gid, member (repeated). */
 router.get('/query', function(req, res, next) {
     console.log(req.query);
-    fs.readFile(fileConfig.group, function (err, data) {
+    fs.readFile(fileConfig.groupUrl, function (err, data) {
         if (err) {
             return console.log("Cannot find the group file!");
         }
@@ -60,7 +60,7 @@ router.get('/query', function(req, res, next) {
 });
 
 router.get('/:gid', function(req, res, next) {
-    fs.readFile(fileConfig.group, function (err, data) {
+    fs.readFile(fileConfig.groupUrl, function (err, data) {
         if (err) {
             return console.log("Cannot find the group file!");
         }

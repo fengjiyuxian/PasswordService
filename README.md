@@ -1,7 +1,8 @@
 # PasswordService
 Get the information of two files(/etc/passwd and /etc/group) in a linux system.
 
-# Using Express + NodeJS + EJS template
+# Install and use Express + NodeJS + EJS template
+Install npm ,express and EJS template. 
 You can find the logic codes in /routes 
 
 # Configure the path of files

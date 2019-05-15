@@ -6,11 +6,11 @@ const attr = ["name", "uid", "gid", "comment", "home", "shell"];
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  fs.readFile(fileConfig.passwd, function (err, data) {
+  // console.log(fileConfig);
+  fs.readFile(fileConfig.passwordUrl, function (err, data) {
     if (err) {
        return console.log("Cannot find the passwd file!");
     }
-    console.log("teeee");
     let arr = data.toString().split(/[\n]/);
     let list = [];
     for(let str of arr){
@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
 router.get('/query', function(req, res, next) {
   console.log(req.query);
   console.log(req.query.name);
-  fs.readFile(fileConfig.passwd, function (err, data) {
+  fs.readFile(fileConfig.passwordUrl, function (err, data) {
     if (err) {
       return console.log("Cannot find the passwd file!");
     }
@@ -56,7 +56,7 @@ router.get('/query', function(req, res, next) {
 
 /* GET users list with querys. */
 router.get('/:uid', function(req, res, next) {
-  fs.readFile(fileConfig.passwd, function (err, data) {
+  fs.readFile(fileConfig.passwordUrl, function (err, data) {
     if (err) {
       return console.log("Cannot find the passwd file!");
     }
@@ -81,7 +81,7 @@ router.get('/:uid', function(req, res, next) {
 /** Return all the groups for a given user. */
 router.get('/:uid/groups', function(req, res, next) {
   console.log("/:uid/groups");
-  fs.readFile(fileConfig.group,function (err, data) {
+  fs.readFile(fileConfig.groupUrl,function (err, data) {
       if (err) {
         return console.log("Cannot find the group file!");
       }
